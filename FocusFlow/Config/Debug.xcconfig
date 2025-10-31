@@ -1,0 +1,2 @@
+// Debug configuration
+SWIFT_OPTIMIZATION_LEVEL = -Onone
