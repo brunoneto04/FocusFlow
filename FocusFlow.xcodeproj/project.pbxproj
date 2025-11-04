@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		989A4E2E2EB7B7E4001BA70D /* FocusFlowShared in Frameworks */ = {isa = PBXBuildFile; productRef = 989A4E2D2EB7B7E4001BA70D /* FocusFlowShared */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		98A30B562EB51D85002A5226 /* 		.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "\t\t.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				989A4E2E2EB7B7E4001BA70D /* FocusFlowShared in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "		";
 			packageProductDependencies = (
+				989A4E2D2EB7B7E4001BA70D /* FocusFlowShared */,
 			);
 			productName = FocusFlow;
 			productReference = 98A30B562EB51D85002A5226 /* 		.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 98A30B4D2EB51D85002A5226;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				989A4E2C2EB7B7E4001BA70D /* XCLocalSwiftPackageReference "FocusFlowShared" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 98A30B572EB51D85002A5226 /* Products */;
 			projectDirPath = "";
@@ -328,6 +337,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		989A4E2C2EB7B7E4001BA70D /* XCLocalSwiftPackageReference "FocusFlowShared" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = FocusFlowShared;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		989A4E2D2EB7B7E4001BA70D /* FocusFlowShared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FocusFlowShared;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 98A30B4E2EB51D85002A5226 /* Project object */;
 }
