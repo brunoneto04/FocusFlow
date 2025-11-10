@@ -2,25 +2,26 @@ import SwiftUI
 
 @main
 struct FocusFlowApp: App {
-    @StateObject private var dashboardVM = DashboardViewModel()
     @StateObject private var router = AppRouter()
-
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {
-                DashboardView(viewModel: dashboardVM,navigate: router.navigate(to:))
+                // Show the dashboard as the app's root
+                DashboardView(navigate: router.navigate(to:))
                     .navigationDestination(for: AppRoute.self) { route in
-                    // Destinos de navegação
                         switch route {
                         case .dashboard:
-                            DashboardView(viewModel: dashboardVM, navigate: router.navigate(to:))
-                    
+                            DashboardView(navigate: router.navigate(to:))
+                        case .planner:
+                            Text("Planner")
+                        case .reports:
+                            Text("Reports")
+                        case .settings:
+                            Text("Settings")
                         }
                     }
             }
-            Text("FocusFlow — App placeholder")
-                .padding()
         }
     }
 }
