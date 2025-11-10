@@ -6,8 +6,6 @@ struct FocusFlowApp: App {
     @StateObject private var router = AppRouter()
 
 
-    @Environment(\.scenePhase) private var scenePhase
-
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {
@@ -17,12 +15,7 @@ struct FocusFlowApp: App {
                         switch route {
                         case .dashboard:
                             DashboardView(viewModel: dashboardVM, navigate: router.navigate(to:))
-                        case .planner:
-                            PlannerView()
-                        case .reports:
-                            ReportsView()
-                        case .settings:
-                            SettingsView()
+                    
                         }
                     }
             }

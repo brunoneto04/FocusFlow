@@ -11,7 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		98A30B562EB51D85002A5226 /* 		.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "\t\t.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		98A30B562EB51D85002A5226 /* FocusFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -45,7 +45,7 @@
 		98A30B572EB51D85002A5226 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				98A30B562EB51D85002A5226 /* 		.app */,
+				98A30B562EB51D85002A5226 /* FocusFlow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -53,9 +53,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		98A30B552EB51D85002A5226 /* 		 */ = {
+		98A30B552EB51D85002A5226 /* FocusFlow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 98A30B612EB51D89002A5226 /* Build configuration list for PBXNativeTarget "		" */;
+			buildConfigurationList = 98A30B612EB51D89002A5226 /* Build configuration list for PBXNativeTarget "FocusFlow" */;
 			buildPhases = (
 				98A30B522EB51D85002A5226 /* Sources */,
 				98A30B532EB51D85002A5226 /* Frameworks */,
@@ -68,12 +68,12 @@
 			fileSystemSynchronizedGroups = (
 				98A30B582EB51D85002A5226 /* FocusFlow */,
 			);
-			name = "		";
+			name = FocusFlow;
 			packageProductDependencies = (
 				989A4E2D2EB7B7E4001BA70D /* FocusFlowShared */,
 			);
 			productName = FocusFlow;
-			productReference = 98A30B562EB51D85002A5226 /* 		.app */;
+			productReference = 98A30B562EB51D85002A5226 /* FocusFlow.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -108,7 +108,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				98A30B552EB51D85002A5226 /* 		 */,
+				98A30B552EB51D85002A5226 /* FocusFlow */,
 			);
 		};
 /* End PBXProject section */
@@ -335,7 +335,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		98A30B612EB51D89002A5226 /* Build configuration list for PBXNativeTarget "		" */ = {
+		98A30B612EB51D89002A5226 /* Build configuration list for PBXNativeTarget "FocusFlow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				98A30B622EB51D89002A5226 /* Debug */,
