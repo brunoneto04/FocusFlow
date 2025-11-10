@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+enum AppRoute {
+    case dashboard
+    case planner
+    case reports
+    case settings
+    
+}
+
