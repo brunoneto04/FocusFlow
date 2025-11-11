@@ -12,3 +12,9 @@ enum AppRoute: Hashable, Codable {
     case reports
     case settings
 }
+enum MainTab: Hashable {
+    case dashboard
+    case motivation
+    case blocked
+    case settings
+}
