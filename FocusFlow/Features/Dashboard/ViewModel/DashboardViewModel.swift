@@ -1,6 +1,6 @@
 import Foundation
 import SwiftUI
-
+import Combine
 // Modelos simples para a Dashboard
 struct FocusBlock: Identifiable, Hashable {
     let id: UUID

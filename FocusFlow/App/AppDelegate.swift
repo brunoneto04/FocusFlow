@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 
 // Placeholder AppDelegate (if needed for UIKit lifecycle integrations)
 final class AppDelegate: NSObject, UIApplicationDelegate {

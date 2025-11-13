@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Combine
 struct ScreenTimeRewardConfig {
     let baseLimit: Int      // minutos base por dia
     let stepGoal: Int       // passos para bonus max

@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct NextFocusBlockCard: View {
     let block: FocusBlock?

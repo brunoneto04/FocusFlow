@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct RootView: View {
     @StateObject private var router = AppRouter()

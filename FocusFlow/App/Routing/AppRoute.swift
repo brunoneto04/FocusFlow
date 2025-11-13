@@ -4,6 +4,7 @@
 //
 //  Created by formando on 10/11/
 import Foundation
+import Combine
 
 /// Enum das rotas da aplicação
 enum AppRoute: Hashable, Codable {
