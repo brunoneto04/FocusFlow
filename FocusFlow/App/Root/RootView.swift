@@ -45,14 +45,6 @@ struct RootView: View {
             }
             .tag(MainTab.motivation)
 
-            // BLOCKED APPS TAB
-            NavigationStack {
-               // BlockedAppsView()                // list of blocked apps, toggles, etc.
-            }
-            .tabItem {
-                Label("Blocked", systemImage: "lock.app")
-            }
-            .tag(MainTab.blocked)
 
             // SETTINGS TAB
             NavigationStack {
