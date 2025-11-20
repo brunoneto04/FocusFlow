@@ -70,7 +70,7 @@ struct OnboardingView: View {
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
             .navigationBarHidden(true)
-            .contentShape(Rectangle()) // gesto reconhecido no ecrã todo
+            .contentShape(Rectangle()) // swipe em todo o ecrã
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -161,24 +161,28 @@ struct OnboardingView: View {
 }
 
 //////////////////////////////////////////////////////////
-// MARK: - Step subviews (optimised for small screens)
+// MARK: - Step subviews (small-screen friendly)
 //////////////////////////////////////////////////////////
 
 // 1. Welcome
 struct OnboardingWelcomeStep: View {
     var body: some View {
         VStack(spacing: 20) {
+            Image(systemName: "sparkles")
+                .font(.system(size: 26, weight: .semibold))
+                .padding(.top, 8)
+            
             Text("Welcome to FocusFlow")
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
-                .padding(.top, 8)
             
             Text("Turn your physical activity into extra screen time and make your phone work for you, not against you.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, 8)
             
             Spacer(minLength: 16)
             
@@ -193,12 +197,15 @@ struct OnboardingWelcomeStep: View {
 struct OnboardingHowItWorksStep: View {
     var body: some View {
         VStack(spacing: 18) {
+            Image(systemName: "hand.tap")
+                .font(.system(size: 26, weight: .semibold))
+                .padding(.top, 8)
+            
             Text("How FocusFlow works")
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
-                .padding(.top, 8)
             
             VStack(alignment: .leading, spacing: 10) {
                 Label {
@@ -237,12 +244,15 @@ struct OnboardingGoalStep: View {
     
     var body: some View {
         VStack(spacing: 18) {
+            Image(systemName: "target")
+                .font(.system(size: 26, weight: .semibold))
+                .padding(.top, 8)
+            
             Text("What’s your main goal?")
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
-                .padding(.top, 8)
             
             VStack(spacing: 10) {
                 ForEach(UserGoal.allCases) { goal in
@@ -255,12 +265,22 @@ struct OnboardingGoalStep: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             if goal == selectedGoal {
                                 Image(systemName: "checkmark.circle.fill")
+                                    .font(.caption)
                             }
                         }
                         .padding(10)
                         .background(
                             RoundedRectangle(cornerRadius: 14)
-                                .stroke(goal == selectedGoal ? Color.accentColor : Color.gray.opacity(0.3), lineWidth: 1)
+                                .fill(selectedGoal == goal
+                                      ? Color.accentColor.opacity(0.15)
+                                      : Color(.secondarySystemBackground))
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .stroke(selectedGoal == goal
+                                        ? Color.accentColor
+                                        : Color.gray.opacity(0.2),
+                                        lineWidth: 1)
                         )
                     }
                 }
@@ -275,17 +295,18 @@ struct OnboardingGoalStep: View {
     }
 }
 
-
-
+// 4. Daily limit – chips + slider (user-friendly)
 struct OnboardingDailyLimitStep: View {
     @Binding var dailyLimitMinutes: Int
     
     @State private var sliderValue: Double = 90
-    private let presets: [Int] = [30, 60, 90, 120] // em minutos
+    private let presets: [Int] = [30, 60, 90, 120] // minutes
     
     var body: some View {
         VStack(spacing: 20) {
-            //título compacto
+            Image(systemName: "timer")
+                .font(.system(size: 26, weight: .semibold))
+                .padding(.top, 8)
             
             Text("How much distraction time per day feels reasonable?")
                 .font(.headline.bold())
@@ -294,11 +315,10 @@ struct OnboardingDailyLimitStep: View {
                 .minimumScaleFactor(0.7)
                 .padding(.horizontal, 24)
             
-            // Valor em destaque
             Text(formattedLimit)
                 .font(.system(size: 30, weight: .bold, design: .rounded))
             
-            // Presets em grid 2x2
+            // Presets
             VStack(alignment: .leading, spacing: 8) {
                 Text("Quick options")
                     .font(.caption)
@@ -311,12 +331,12 @@ struct OnboardingDailyLimitStep: View {
                             sliderValue = Double(value)
                             dailyLimitMinutes = value
                         } label: {
-                            HStack {
+                            HStack(spacing: 6) {
                                 Text(label(for: value))
                                     .font(.subheadline)
                                 if dailyLimitMinutes == value {
                                     Image(systemName: "checkmark.circle.fill")
-                                        .font(.caption)
+                                        .font(.caption2)
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -341,7 +361,7 @@ struct OnboardingDailyLimitStep: View {
             }
             .padding(.horizontal, 4)
             
-            // Slider para ajuste fino
+            // Slider
             VStack(spacing: 8) {
                 Slider(
                     value: $sliderValue,
@@ -379,16 +399,15 @@ struct OnboardingDailyLimitStep: View {
                 .foregroundColor(.secondary)
         }
         .onAppear {
-            // inicializar slider a partir do valor atual
             sliderValue = Double(dailyLimitMinutes)
-            // se vier 0 ou muito fora, normaliza
-            if sliderValue < 15 { sliderValue = 90 }
+            if sliderValue < 15 || sliderValue > 180 {
+                sliderValue = 90
+            }
             dailyLimitMinutes = Int(sliderValue)
         }
     }
     
-    // MARK: - Helpers
-    
+    // Helpers
     private var formattedLimit: String {
         let hours = dailyLimitMinutes / 60
         let minutes = dailyLimitMinutes % 60
@@ -433,12 +452,15 @@ struct OnboardingSummaryStep: View {
     
     var body: some View {
         VStack(spacing: 18) {
+            Image(systemName: "checkmark.seal.fill")
+                .font(.system(size: 26, weight: .semibold))
+                .padding(.top, 8)
+            
             Text("You’re all set to start")
                 .font(.title2.bold())
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
-                .padding(.top, 8)
             
             VStack(alignment: .leading, spacing: 10) {
                 Label {
