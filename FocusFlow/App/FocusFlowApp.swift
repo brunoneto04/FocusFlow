@@ -2,9 +2,16 @@ import SwiftUI
 import Combine
 @main
 struct FocusFlowApp: App {
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
     var body: some Scene {
         WindowGroup {
-            RootView()
+            if hasCompletedOnboarding{
+                RootView()
+            }
+            else{
+                OnboardingView()
+            }
+            
         }
     }
 }

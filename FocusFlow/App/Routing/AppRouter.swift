@@ -8,17 +8,28 @@
 import SwiftUI
 import Combine
 
-
 final class AppRouter: ObservableObject {
-    @Published var path = NavigationPath()
+    /// Current pushed route from the Dashboard.
+    /// `nil` means we are on the Dashboard itself.
+    @Published var selectedRoute: AppRoute? = nil
 
     func navigate(to route: AppRoute) {
-        path.append(route)
+        // If you ever call .dashboard, go back to root
+        if route == .dashboard {
+            selectedRoute = nil
+        } else {
+            selectedRoute = route
+        }
     }
+
     func pop() {
-        if !path.isEmpty { path.removeLast() }
+        // Go back to Dashboard
+        selectedRoute = nil
     }
+
     func popToRoot() {
-        path.removeLast(path.count)
+        // Same as pop in this simple routing model
+        selectedRoute = nil
     }
 }
+

@@ -1,4 +1,6 @@
 import Foundation
+import FamilyControls
+import DeviceActivity
 
 // Schedule device activity monitoring and limits
 protocol DeviceActivityScheduling{
@@ -25,8 +27,7 @@ final class DeviceActivityScheduler: DeviceActivityScheduling{
     func requestAuthorization() async throws -> Bool {
 
         // Implementation goes here
-        import FamilyControls
-        import DeviceActivity
+        
         
 
 

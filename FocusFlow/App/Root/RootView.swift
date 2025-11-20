@@ -16,20 +16,34 @@ struct RootView: View {
         TabView(selection: $selectedTab) {
 
             // DASHBOARD TAB
-            NavigationStack(path: $router.path) {
-                DashboardView(navigate: router.navigate(to:))
-                    .navigationDestination(for: AppRoute.self) { route in
-                        switch route {
-                        case .dashboard:
-                            DashboardView(navigate: router.navigate(to:))
-                        case .planner:
-                            Text("Planner")      // replace with PlannerView()
-                        case .reports:
-                            Text("Reports")      // replace with ReportsView()
-                        case .settings:
-                            Text("Settings")     // can push settings from dashboard if you want
-                        }
-                    }
+            NavigationView {
+                ZStack {
+                    // root screen
+                    DashboardView(navigate: router.navigate(to:))
+
+                    // programmatic navigation using selection
+                    NavigationLink(
+                        destination: Text("Planner"),   // replace with PlannerView()
+                        tag: AppRoute.planner,
+                        selection: $router.selectedRoute
+                    ) { EmptyView() }
+                        .hidden()
+
+                    NavigationLink(
+                        destination: Text("Reports"),   // replace with ReportsView()
+                        tag: AppRoute.reports,
+                        selection: $router.selectedRoute
+                    ) { EmptyView() }
+                        .hidden()
+
+                    NavigationLink(
+                        destination: Text("Settings"),  // replace with SettingsView()
+                        tag: AppRoute.settings,
+                        selection: $router.selectedRoute
+                    ) { EmptyView() }
+                        .hidden()
+                }
+                .navigationTitle("Dashboard")
             }
             .tabItem {
                 Label("Dashboard", systemImage: "house.fill")
@@ -37,26 +51,26 @@ struct RootView: View {
             .tag(MainTab.dashboard)
 
             // MOTIVATION TAB
-            NavigationStack {
-               // MotivationView()                 // create this screen
+            NavigationView {
+                Text("Motivation") // MotivationView()
+                    .navigationTitle("Motivation")
             }
             .tabItem {
                 Label("Motivation", systemImage: "lightbulb.fill")
             }
             .tag(MainTab.motivation)
 
-
             // SETTINGS TAB
-            NavigationStack {
-               // SettingsView()
+            NavigationView {
+                Text("Settings") // SettingsView()
+                    .navigationTitle("Settings")
             }
             .tabItem {
                 Label("Settings", systemImage: "gearshape.fill")
             }
             .tag(MainTab.settings)
         }
-        .tint(.blue) // selected tab + accent
+        .tint(.blue) // iOS 15 ok
+        .environmentObject(router)
     }
 }
-
-
