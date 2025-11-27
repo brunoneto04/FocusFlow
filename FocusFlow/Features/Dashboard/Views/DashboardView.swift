@@ -1,32 +1,77 @@
 import SwiftUI
-import Combine
+import FamilyControls   // 👈 importante para AuthorizationStatus
 
 struct DashboardView: View {
     @StateObject private var vm = DashboardViewModel()
+    
+    @State private var showHealthSetup = false
+    @State private var showScreenTimeSetup = false
+    @State private var isRequestingScreenTime = false   // loading do botão
+
     let navigate: (AppRoute) -> Void
+
+    @AppStorage("isHealthConnected") private var isHealthConnected: Bool = false
+
+    @StateObject private var screenTimeManager = ScreenTimeManager.shared
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                // Banner que já tinhas
                 if !vm.missingPermissions.isEmpty {
-                    PermissionBanner(missing: vm.missingPermissions,
-                                     onGrant: { navigate(.settings) })
+                    PermissionBanner(
+                        missing: vm.missingPermissions,
+                        onGrant: {
+                            showHealthSetup = true
+                        }
+                    )
                 }
 
+                // 👉 CARDS DE PERMISSÃO
+
+                // 1) Health – aparece se ainda não estiver ligado
+                if !isHealthConnected {
+                    PermissionCard(
+                        systemImage: "heart.fill",
+                        title: "Connect Apple Health",
+                        subtitle: "Turn your steps into extra screen time.",
+                        buttonTitle: "Connect Health",
+                        isLoading: false
+                    ) {
+                        showHealthSetup = true
+                    }
+                }
+
+                // 2) Screen Time – aparece se ainda não tiver autorização aprovada
+                if screenTimeManager.authorizationStatus != .approved {
+                    PermissionCard(
+                        systemImage: "hourglass.circle.fill",
+                        title: "Connect Screen Time",
+                        subtitle: "Let FocusFlow manage which apps you can use based on your activity.",
+                        buttonTitle: isRequestingScreenTime ? "Requesting..." : "Connect Screen Time",
+                        isLoading: isRequestingScreenTime
+                    ) {
+                        requestScreenTimePermission()
+                    }
+                }
+
+                // 👉 resto do dashboard
                 TodayProgressSection(health: vm.health)
 
                 NextFocusBlockCard(block: vm.nextBlock)
 
-                UsageSummaryCard(usage: vm.usage,
-                                 onOpenReport: { navigate(.planner) }) // ou rota para Reports
+                UsageSummaryCard(
+                    usage: vm.usage,
+                    onOpenReport: { navigate(.planner) }
+                )
 
-                QuickActionsBar(isFocusing: vm.isFocusingNow,
-                                onFocus: vm.focusNow,
-                                onStop: vm.stopFocus,
-                                onBreak: vm.takeBreak5Min,
-                                onPlanner: { navigate(.planner) })
-
-              //  MotivationTipView(text: vm.tip)
+                QuickActionsBar(
+                    isFocusing: vm.isFocusingNow,
+                    onFocus: vm.focusNow,
+                    onStop: vm.stopFocus,
+                    onBreak: vm.takeBreak5Min,
+                    onPlanner: { navigate(.planner) }
+                )
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 20)
@@ -38,5 +83,38 @@ struct DashboardView: View {
             }
         }
         .task { vm.load() }
+        // Sheet para setup do Health
+        .sheet(isPresented: $showHealthSetup) {
+            HealthSetupView {
+                showHealthSetup = false
+                vm.load()
+            }
+        }
+        // Sheet para setup do Screen Time (onde metes o FamilyActivityPicker, etc.)
+        .sheet(isPresented: $showScreenTimeSetup) {
+            ScreenTimeSetupView()   // adapta se tiver onDone
+        }
+    }
+
+    // MARK: - Screen Time
+
+    private func requestScreenTimePermission() {
+        guard !isRequestingScreenTime else { return }
+        isRequestingScreenTime = true
+
+        Task {
+            do {
+                try await screenTimeManager.requestAuthorization()
+                isRequestingScreenTime = false
+
+                if screenTimeManager.authorizationStatus == .approved {
+                    // Depois de aprovar, abres o ecrã onde escolhes apps/websites
+                    showScreenTimeSetup = true
+                }
+            } catch {
+                isRequestingScreenTime = false
+                print("Screen Time authorization failed: \(error)")
+            }
+        }
     }
 }

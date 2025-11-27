@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import HealthKit
 // Modelos simples para a Dashboard
 struct FocusBlock: Identifiable, Hashable {
     let id: UUID
@@ -35,51 +36,88 @@ enum PermissionKind: String, Identifiable {
 }
 
 
-/// ViewModel simplificado (liga depois aos teus services)
+/// ViewModel simplificado (liga depois aos teus services
+
 final class DashboardViewModel: ObservableObject {
     // Estado exibido
     @Published var missingPermissions: [PermissionKind] = []
-    @Published var health: HealthProgress = .init(progress: 0.0, title: "Daily Activity", detail: "No data")
+    @Published var health: HealthProgress = .init(progress: 0.0,
+                                                  title: "Daily Activity",
+                                                  detail: "No data")
     @Published var nextBlock: FocusBlock?
-    @Published var usage: UsageSummary = .init(usedMinutes: 0, limitMinutes: nil, topAppName: nil, topAppMinutes: nil)
+    @Published var usage: UsageSummary = .init(usedMinutes: 0,
+                                               limitMinutes: nil,
+                                               topAppName: nil,
+                                               topAppMinutes: nil)
     @Published var isFocusingNow: Bool = false
     @Published var isLoading: Bool = true
     @Published var tip: String = "Tiny progress is still progress."
-
+    
     // Ações (integra com serviços reais)
     func focusNow() {
-        // TODO: chamar ScreenTimeService para aplicar shields imediatos
         isFocusingNow = true
     }
 
     func stopFocus() {
-        // TODO: remover shields
         isFocusingNow = false
     }
 
     func takeBreak5Min() {
-        // TODO: pedir 'break' de 5 minutos via App Group / Monitor
+        // TODO
     }
 
     func openPlanner() {
-        // A navegação é feita na View com closure, este método é um placeholder
+        // Navegação feita na View com closure
     }
 
-    // Carrega mocks (substitui por fetch real de serviços)
+    // Carrega dados (agora com HealthKit)
     @MainActor
     func load() {
         isLoading = true
-        // Simulação de dados
+        
+        // --- mocks de restante informação (como tinhas) ---
         let cal = Calendar.current
         let now = Date()
         let start = cal.date(bySettingHour: 18, minute: 0, second: 0, of: now)!
         let end   = cal.date(bySettingHour: 20, minute: 0, second: 0, of: now)!
 
-        self.health = .init(progress: 0.62, title: "Daily Activity", detail: "6,200 / 10,000 steps")
-        self.nextBlock = FocusBlock(id: .init(), title: "Evening Focus", start: start, end: end)
-        self.usage = .init(usedMinutes: 23, limitMinutes: 30, topAppName: "Instagram", topAppMinutes: 12)
+        self.nextBlock = FocusBlock(id: .init(),
+                                    title: "Evening Focus",
+                                    start: start,
+                                    end: end)
+        
+        self.usage = .init(usedMinutes: 23,
+                           limitMinutes: 30,
+                           topAppName: "Instagram",
+                           topAppMinutes: 12)
+        
         self.missingPermissions = [] // ex.: [.screenTime]
         self.tip = "Protect the next hour like a meeting with yourself."
-        self.isLoading = false
+        
+        // --- Health progress a partir do HealthKit ---
+        let goalSteps = 10_000
+        
+        HealthKitManager.shared.fetchTodaySteps { [weak self] steps in
+            guard let self = self else { return }
+            
+            print("DashboardViewModel.load – steps from HealthKit:", steps)
+            
+            let clampedSteps = max(0, steps)
+            let progress = min(Double(clampedSteps) / Double(goalSteps), 1.0)
+            
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            
+            let stepsString = formatter.string(from: NSNumber(value: clampedSteps)) ?? "\(clampedSteps)"
+            let goalString  = formatter.string(from: NSNumber(value: goalSteps)) ?? "\(goalSteps)"
+            
+            self.health = .init(
+                progress: progress,
+                title: "Daily Activity",
+                detail: "\(stepsString) / \(goalString) steps"
+            )
+            
+            self.isLoading = false
+        }
     }
 }

@@ -10,7 +10,15 @@ final class HealthKitManager: ObservableObject {
     @Published private(set) var todaysSteps: Int = 0
 
     private init() {}
+    
+    var isHealthAvailable: Bool {
+        HKHealthStore.isHealthDataAvailable()
+    }
 
+    
+    
+    
+    
     private var readTypes: Set<HKObjectType> {
         var types = Set<HKObjectType>()
         if let steps = HKObjectType.quantityType(forIdentifier: .stepCount) {
