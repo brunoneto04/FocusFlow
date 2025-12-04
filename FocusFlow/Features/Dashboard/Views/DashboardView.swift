@@ -1,23 +1,29 @@
+//
+//  DashboardView.swift
+//  FocusFlow
+//
+
 import SwiftUI
-import FamilyControls   // 👈 importante para AuthorizationStatus
+import FamilyControls   // importante para AuthorizationStatus
 
 struct DashboardView: View {
     @StateObject private var vm = DashboardViewModel()
-    
+
     @State private var showHealthSetup = false
     @State private var showScreenTimeSetup = false
     @State private var isRequestingScreenTime = false   // loading do botão
 
+    /// Closure de navegação, passada pelo RootView via AppRouter
     let navigate: (AppRoute) -> Void
 
     @AppStorage("isHealthConnected") private var isHealthConnected: Bool = false
 
-    @StateObject private var screenTimeManager = ScreenTimeManager.shared
+    @ObservedObject private var screenTimeManager = ScreenTimeManager.shared
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                // Banner que já tinhas
+                // Banner de permissões em falta
                 if !vm.missingPermissions.isEmpty {
                     PermissionBanner(
                         missing: vm.missingPermissions,
@@ -26,8 +32,6 @@ struct DashboardView: View {
                         }
                     )
                 }
-
-                // 👉 CARDS DE PERMISSÃO
 
                 // 1) Health – aparece se ainda não estiver ligado
                 if !isHealthConnected {
@@ -55,14 +59,16 @@ struct DashboardView: View {
                     }
                 }
 
-                // 👉 resto do dashboard
+                // Conteúdo principal do dashboard
                 TodayProgressSection(health: vm.health)
 
                 NextFocusBlockCard(block: vm.nextBlock)
 
                 UsageSummaryCard(
                     usage: vm.usage,
-                    onOpenReport: { navigate(.planner) }
+                    onOpenReport: {
+                        navigate(.planner)
+                    }
                 )
 
                 QuickActionsBar(
@@ -70,7 +76,9 @@ struct DashboardView: View {
                     onFocus: vm.focusNow,
                     onStop: vm.stopFocus,
                     onBreak: vm.takeBreak5Min,
-                    onPlanner: { navigate(.planner) }
+                    onPlanner: {
+                        navigate(.planner)
+                    }
                 )
             }
             .padding(.horizontal, 16)
@@ -79,20 +87,25 @@ struct DashboardView: View {
         .navigationTitle("Dashboard")
         .overlay {
             if vm.isLoading {
-                ProgressView().progressViewStyle(.circular)
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
         }
-        .task { vm.load() }
+        .task {
+             vm.load()
+        }
         // Sheet para setup do Health
         .sheet(isPresented: $showHealthSetup) {
             HealthSetupView {
                 showHealthSetup = false
-                vm.load()
+                Task {
+                     vm.load()
+                }
             }
         }
-        // Sheet para setup do Screen Time (onde metes o FamilyActivityPicker, etc.)
+        // Sheet para setup do Screen Time
         .sheet(isPresented: $showScreenTimeSetup) {
-            ScreenTimeSetupView()   // adapta se tiver onDone
+            ScreenTimeSetupView()
         }
     }
 

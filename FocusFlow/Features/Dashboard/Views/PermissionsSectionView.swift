@@ -1,16 +1,8 @@
-//
-//  PermissionsSectionView.swift
-//  FocusFlow
-//
-//  Created by formando on 27/11/2025.
-//
-
-
 import SwiftUI
 import FamilyControls
 
 struct PermissionsSectionView: View {
-    @EnvironmentObject var healthManager: HealthManager          // adapta ao teu tipo
+    @EnvironmentObject var healthManager: HealthKitManager
     @StateObject private var screenTimeManager = ScreenTimeManager.shared
 
     @State private var isRequestingHealth = false
@@ -19,6 +11,7 @@ struct PermissionsSectionView: View {
 
     var body: some View {
         VStack(spacing: 16) {
+            // Permissão do Apple Health
             if !hasHealthPermission {
                 PermissionCard(
                     systemImage: "heart.fill",
@@ -31,6 +24,7 @@ struct PermissionsSectionView: View {
                 }
             }
 
+            // Permissão do Screen Time / Family Controls
             if screenTimeManager.authorizationStatus != .approved {
                 PermissionCard(
                     systemImage: "hourglass.circle.fill",
@@ -43,6 +37,8 @@ struct PermissionsSectionView: View {
                 }
             }
         }
+        .animation(.default, value: hasHealthPermission)
+        .animation(.default, value: screenTimeManager.authorizationStatus)
         .familyActivityPicker(
             isPresented: $isScreenTimePickerPresented,
             selection: $screenTimeManager.selection
@@ -52,7 +48,6 @@ struct PermissionsSectionView: View {
     // MARK: - Helpers
 
     private var hasHealthPermission: Bool {
-        // adapta isto ao que já tens no teu HealthManager
         healthManager.isAuthorized
     }
 
@@ -60,11 +55,9 @@ struct PermissionsSectionView: View {
         guard !isRequestingHealth else { return }
         isRequestingHealth = true
 
-        Task {
-            do {
-                try await healthManager.requestAuthorization()
-            } catch {
-                print("HealthKit authorization failed: \(error)")
+        healthManager.requestAuthorization { success in
+            if !success {
+                print("HealthKit authorization failed or not granted")
             }
             isRequestingHealth = false
         }
@@ -77,7 +70,6 @@ struct PermissionsSectionView: View {
         Task {
             do {
                 try await screenTimeManager.requestAuthorization()
-                // depois de autorizado, abrimos logo o picker
                 if screenTimeManager.authorizationStatus == .approved {
                     isScreenTimePickerPresented = true
                 }

@@ -1,5 +1,5 @@
 //
-//  RouteView.swift
+//  RootView.swift
 //  FocusFlow
 //
 //  Created by formando on 10/11/2025.
@@ -15,44 +15,41 @@ struct RootView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
 
-            // DASHBOARD TAB
-            NavigationView {
-                ZStack {
-                    // root screen
-                    DashboardView(navigate: router.navigate(to:))
+            // MARK: - DASHBOARD TAB
+            NavigationStack(path: $router.path) {
+                DashboardView(navigate: router.navigate(to:))
+                    .navigationDestination(for: AppRoute.self) { route in
+                        switch route {
+                        case .dashboard:
+                            // Se algum dia quiseres navegar explicitamente para o dashboard
+                            DashboardView(navigate: router.navigate(to:))
 
-                    // programmatic navigation using selection
-                    NavigationLink(
-                        destination: Text("Planner"),   // replace with PlannerView()
-                        tag: AppRoute.planner,
-                        selection: $router.selectedRoute
-                    ) { EmptyView() }
-                        .hidden()
+                        case .planner:
+                            // TODO: substituir por PlannerView()
+                            Text("Planner")
+                                .navigationTitle("Planner")
 
-                    NavigationLink(
-                        destination: Text("Reports"),   // replace with ReportsView()
-                        tag: AppRoute.reports,
-                        selection: $router.selectedRoute
-                    ) { EmptyView() }
-                        .hidden()
+                        case .reports:
+                            // TODO: substituir por ReportsView()
+                            Text("Reports")
+                                .navigationTitle("Reports")
 
-                    NavigationLink(
-                        destination: Text("Settings"),  // replace with SettingsView()
-                        tag: AppRoute.settings,
-                        selection: $router.selectedRoute
-                    ) { EmptyView() }
-                        .hidden()
-                }
-                .navigationTitle("Dashboard")
+                        case .settings:
+                            // TODO: podes navegar para um ecrã de settings mais profundo
+                            Text("Settings")
+                                .navigationTitle("Settings")
+                        }
+                    }
             }
             .tabItem {
                 Label("Dashboard", systemImage: "house.fill")
             }
             .tag(MainTab.dashboard)
 
-            // MOTIVATION TAB
-            NavigationView {
-                Text("Motivation") // MotivationView()
+            // MARK: - MOTIVATION TAB
+            NavigationStack {
+                // TODO: troca por MotivationView()
+                Text("Motivation")
                     .navigationTitle("Motivation")
             }
             .tabItem {
@@ -60,9 +57,21 @@ struct RootView: View {
             }
             .tag(MainTab.motivation)
 
-            // SETTINGS TAB
-            NavigationView {
-                Text("Settings") // SettingsView()
+            // MARK: - BLOCKED TAB
+            NavigationStack {
+                // TODO: troca por BlockedAppsView() ou semelhante
+                Text("Blocked Apps")
+                    .navigationTitle("Blocked Apps")
+            }
+            .tabItem {
+                Label("Blocked", systemImage: "lock.fill")
+            }
+            .tag(MainTab.blocked)
+
+            // MARK: - SETTINGS TAB
+            NavigationStack {
+                // TODO: troca por SettingsRootView()
+                Text("Settings")
                     .navigationTitle("Settings")
             }
             .tabItem {
@@ -70,7 +79,7 @@ struct RootView: View {
             }
             .tag(MainTab.settings)
         }
-        .tint(.blue) // iOS 15 ok
+        .tint(.blue)
         .environmentObject(router)
     }
 }

@@ -8,6 +8,7 @@ final class HealthKitManager: ObservableObject {
     private let healthStore = HKHealthStore()
 
     @Published private(set) var todaysSteps: Int = 0
+    @Published var isAuthorized: Bool = false
 
     private init() {}
     
@@ -15,10 +16,7 @@ final class HealthKitManager: ObservableObject {
         HKHealthStore.isHealthDataAvailable()
     }
 
-    
-    
-    
-    
+    // Tipos de dados que queremos ler do HealthKit
     private var readTypes: Set<HKObjectType> {
         var types = Set<HKObjectType>()
         if let steps = HKObjectType.quantityType(forIdentifier: .stepCount) {
@@ -27,22 +25,28 @@ final class HealthKitManager: ObservableObject {
         return types
     }
 
+    // Pedir autorização ao HealthKit
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
-            completion(false)
+            DispatchQueue.main.async {
+                self.isAuthorized = false
+                completion(false)
+            }
             return
         }
 
-        healthStore.requestAuthorization(toShare: nil, read: readTypes) { success, error in
+        healthStore.requestAuthorization(toShare: nil, read: readTypes) { [weak self] success, error in
             DispatchQueue.main.async {
                 if let error = error {
                     print("HealthKit auth error: \(error.localizedDescription)")
                 }
+                self?.isAuthorized = success
                 completion(success)
             }
         }
     }
 
+    // Ir buscar os passos de hoje
     func fetchTodaySteps(completion: ((Int) -> Void)? = nil) {
         guard let stepsType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
             completion?(0)
