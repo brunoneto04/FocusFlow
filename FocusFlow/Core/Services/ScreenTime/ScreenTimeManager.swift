@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import FamilyControls
 import ManagedSettings
 
@@ -28,10 +29,13 @@ final class ScreenTimeManager: ObservableObject {
         authorizationStatus = center.authorizationStatus
     }
     
-    func applyShield() {
+    func applySelectedShield() {
         // Exemplo simples: bloquear tudo o que estiver na seleção
         store.shield.applications = selection.applicationTokens
         store.shield.webDomains = selection.webDomainTokens
+    }
+    func applyAllShield() {
+        // Exemplo simples: bloquear tudo o que estiver na seleção
         store.shield.applicationCategories = .all()
         store.shield.webDomainCategories = .all()
     }

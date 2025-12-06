@@ -3,12 +3,15 @@ import SwiftUI
 struct UsageSummaryCard: View {
     let usage: UsageSummary
     let onOpenReport: () -> Void
+    
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Label("Screen Time (Today)", systemImage: "hourglass")
                     .font(.headline)
+                    .foregroundColor(.primary)
                 Spacer()
                 Button("View details", action: onOpenReport)
                     .font(.footnote)
@@ -16,17 +19,30 @@ struct UsageSummaryCard: View {
 
             ProgressView(value: progressValue)
                 .progressViewStyle(.linear)
+                .tint(.accentColor)
 
             HStack {
-                Text(summaryLine).font(.subheadline)
+                Text(summaryLine)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
                 Spacer()
                 if let app = usage.topAppName, let min = usage.topAppMinutes {
-                    Text("Top: \(app) · \(min)m").font(.footnote).foregroundStyle(.secondary)
+                    Text("Top: \(app) · \(min)m")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
-        .padding()
-        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
+        .padding(20)
+        .background(
+            RoundedRectangle(cornerRadius: OnboardingTheme.cardCornerRadius, style: .continuous)
+                .fill(OnboardingTheme.cardBackground(for: colorScheme))
+                .overlay(
+                    RoundedRectangle(cornerRadius: OnboardingTheme.cardCornerRadius, style: .continuous)
+                        .stroke(Color.white.opacity(colorScheme == .dark ? 0.08 : 0.12))
+                )
+        )
+        .shadow(color: OnboardingTheme.shadow, radius: 20, x: 0, y: 10)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("Screen Time today \(summaryLine)")
     }

@@ -1,5 +1,5 @@
 import Foundation
 import Combine
-enum Environment {
+enum AppEnvironment {
     static let apiBaseURL = URL(string: "https://api.example.com/")!
 }
