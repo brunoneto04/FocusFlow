@@ -49,8 +49,7 @@ struct RootView: View {
             // MARK: - MOTIVATION TAB
             NavigationStack {
                 // TODO: troca por MotivationView()
-                Text("Motivation")
-                    .navigationTitle("Motivation")
+                MotivationView()
             }
             .tabItem {
                 Label("Motivation", systemImage: "lightbulb.fill")
@@ -59,9 +58,7 @@ struct RootView: View {
 
             // MARK: - BLOCKED TAB
             NavigationStack {
-                // TODO: troca por BlockedAppsView() ou semelhante
-                Text("Blocked Apps")
-                    .navigationTitle("Blocked Apps")
+                BlockedAppsView()
             }
             .tabItem {
                 Label("Blocked", systemImage: "lock.fill")

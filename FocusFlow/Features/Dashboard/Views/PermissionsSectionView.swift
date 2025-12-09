@@ -55,13 +55,20 @@ struct PermissionsSectionView: View {
         guard !isRequestingHealth else { return }
         isRequestingHealth = true
 
-        healthManager.requestAuthorization { success in
+        Task {
+            let success = await healthManager.requestAuthorization()
+            
             if !success {
                 print("HealthKit authorization failed or not granted")
             }
-            isRequestingHealth = false
+            
+            await MainActor.run {
+                isRequestingHealth = false
+            }
         }
     }
+    
+
 
     private func requestScreenTimePermission() {
         guard !isRequestingScreenTime else { return }

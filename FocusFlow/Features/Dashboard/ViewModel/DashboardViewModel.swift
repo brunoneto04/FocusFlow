@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 import HealthKit
+
 // Modelos simples para a Dashboard
 struct FocusBlock: Identifiable, Hashable {
     let id: UUID
@@ -35,9 +36,8 @@ enum PermissionKind: String, Identifiable {
     }
 }
 
-
-/// ViewModel simplificado (liga depois aos teus services
-
+/// ViewModel simplificado (liga depois aos teus services)
+@MainActor
 final class DashboardViewModel: ObservableObject {
     private let stepConfiguration = StepBonusConfiguration(
         dailyStepGoal: 10_000,
@@ -51,14 +51,18 @@ final class DashboardViewModel: ObservableObject {
 
     // Estado exibido
     @Published var missingPermissions: [PermissionKind] = []
-    @Published var health: HealthProgress = .init(progress: 0.0,
-                                                  title: "Daily Activity",
-                                                  detail: "No data")
+    @Published var health: HealthProgress = .init(
+        progress: 0.0,
+        title: "Daily Activity",
+        detail: "No data"
+    )
     @Published var nextBlock: FocusBlock?
-    @Published var usage: UsageSummary = .init(usedMinutes: 0,
-                                               limitMinutes: nil,
-                                               topAppName: nil,
-                                               topAppMinutes: nil)
+    @Published var usage: UsageSummary = .init(
+        usedMinutes: 0,
+        limitMinutes: nil,
+        topAppName: nil,
+        topAppMinutes: nil
+    )
     @Published var isFocusingNow: Bool = false
     @Published var isLoading: Bool = true
     @Published var tip: String = "Tiny progress is still progress."
@@ -68,7 +72,7 @@ final class DashboardViewModel: ObservableObject {
     @Published var currentSteps: Int = 0
     
     private var cancellables = Set<AnyCancellable>()
-    let activityBonus: ActivityBonusOrchestrator
+    public let activityBonus: ActivityBonusOrchestrator
 
     init(activityBonus: ActivityBonusOrchestrator? = nil) {
         let orchestrator = activityBonus ?? ActivityBonusOrchestrator(configuration: stepConfiguration)
@@ -94,7 +98,6 @@ final class DashboardViewModel: ObservableObject {
     }
 
     // Carrega dados (agora com HealthKit)
-    @MainActor
     func load() {
         isLoading = true
         
@@ -104,27 +107,29 @@ final class DashboardViewModel: ObservableObject {
         let start = cal.date(bySettingHour: 18, minute: 0, second: 0, of: now)!
         let end   = cal.date(bySettingHour: 20, minute: 0, second: 0, of: now)!
 
-        self.nextBlock = FocusBlock(id: .init(),
-                                    title: "Evening Focus",
-                                    start: start,
-                                    end: end)
+        self.nextBlock = FocusBlock(
+            id: .init(),
+            title: "Evening Focus",
+            start: start,
+            end: end
+        )
 
-        self.usage = .init(usedMinutes: 30,
-                           limitMinutes: 30,
-                           topAppName: "Instagram",
-                           topAppMinutes: 12)
+        self.usage = .init(
+            usedMinutes: 30,
+            limitMinutes: 30,
+            topAppName: "Instagram",
+            topAppMinutes: 12
+        )
         
         self.missingPermissions = [] // ex.: [.screenTime]
         self.tip = "Protect the next hour like a meeting with yourself."
         syncShieldingState()
 
-        Task { [weak self] in
-            guard let self else { return }
+        // Task no MainActor para poder chamar HealthKitManager e ActivityBonusOrchestrator
+        Task { @MainActor in
             _ = await HealthKitManager.shared.requestAuthorization()
             await self.activityBonus.refreshStepsAndBonus()
-            await MainActor.run {
-                self.isLoading = false
-            }
+            self.isLoading = false
         }
     }
 
@@ -152,10 +157,12 @@ final class DashboardViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    @MainActor
     private func updateHealthProgress(steps: Int) {
         let clampedSteps = max(0, steps)
-        let progress = min(Double(clampedSteps) / Double(stepConfiguration.dailyStepGoal), 1.0)
+        let progress = min(
+            Double(clampedSteps) / Double(stepConfiguration.dailyStepGoal),
+            1.0
+        )
 
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal

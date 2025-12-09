@@ -140,17 +140,21 @@ struct HealthSetupView: View {
         isRequestingHealth = true
         healthError = nil
         
-        HealthKitManager.shared.requestAuthorization { success in
-            isRequestingHealth = false
+        Task {
+            let success = await HealthKitManager.shared.requestAuthorization()
             
-            if success {
-                isHealthConnected = true
-                HealthKitManager.shared.fetchTodaySteps { steps in
-                    previewSteps = steps
-                    onFinish()
+            await MainActor.run {
+                isRequestingHealth = false
+                
+                if success {
+                    isHealthConnected = true
+                    HealthKitManager.shared.fetchTodaySteps { steps in
+                        previewSteps = steps
+                        onFinish()
+                    }
+                } else {
+                    healthError = "We couldn't enable Health access. You can change this later in Settings."
                 }
-            } else {
-                healthError = "We couldn't enable Health access. You can change this later in Settings."
             }
         }
     }

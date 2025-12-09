@@ -32,19 +32,24 @@ final class HealthKitManager: ObservableObject {
     }
 
     func requestAuthorization() async -> Bool {
+    
         guard isHealthAvailable, !readTypes.isEmpty else {
             isAuthorized = false
             return false
         }
 
         do {
-            try await healthStore.requestAuthorization(toShare: nil, read: readTypes)
+            try await healthStore.requestAuthorization(
+                toShare: [],
+                read: readTypes
+            )
             isAuthorized = true
             return true
         } catch {
             isAuthorized = false
             return false
         }
+       
     }
 
     func fetchTodaySteps() async throws -> Int {
