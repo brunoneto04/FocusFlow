@@ -73,6 +73,11 @@ struct DashboardView: View {
                     // Conteúdo principal do dashboard
                     TodayProgressSection(health: vm.health)
 
+                    ActivityBonusCard(
+                        orchestrator: vm.activityBonus,
+                        configuration: vm.bonusConfiguration
+                    )
+
                     NextFocusBlockCard(block: vm.nextBlock)
 
                     UsageSummaryCard(

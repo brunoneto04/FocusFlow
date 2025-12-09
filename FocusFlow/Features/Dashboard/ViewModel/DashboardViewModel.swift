@@ -39,6 +39,16 @@ enum PermissionKind: String, Identifiable {
 /// ViewModel simplificado (liga depois aos teus services
 
 final class DashboardViewModel: ObservableObject {
+    private let stepConfiguration = StepBonusConfiguration(
+        dailyStepGoal: 10_000,
+        baseBonusMinutes: 15,
+        bonusStepsPerBlock: 2_000,
+        bonusMinutesPerBlock: 5,
+        maxDailyBonusMinutes: 45
+    )
+
+    var bonusConfiguration: StepBonusConfiguration { stepConfiguration }
+
     // Estado exibido
     @Published var missingPermissions: [PermissionKind] = []
     @Published var health: HealthProgress = .init(progress: 0.0,
@@ -52,7 +62,20 @@ final class DashboardViewModel: ObservableObject {
     @Published var isFocusingNow: Bool = false
     @Published var isLoading: Bool = true
     @Published var tip: String = "Tiny progress is still progress."
+    @Published var blockedGroupIdentifier: String?
+    @Published var availableBonusMinutes: Int = 0
+    @Published var activeUnlockUntil: Date?
+    @Published var currentSteps: Int = 0
     
+    private var cancellables = Set<AnyCancellable>()
+    let activityBonus: ActivityBonusOrchestrator
+
+    init(activityBonus: ActivityBonusOrchestrator? = nil) {
+        let orchestrator = activityBonus ?? ActivityBonusOrchestrator(configuration: stepConfiguration)
+        self.activityBonus = orchestrator
+        bindOrchestrator(orchestrator)
+    }
+
     // Ações (integra com serviços reais)
     func focusNow() {
         isFocusingNow = true
@@ -85,39 +108,73 @@ final class DashboardViewModel: ObservableObject {
                                     title: "Evening Focus",
                                     start: start,
                                     end: end)
-        
-        self.usage = .init(usedMinutes: 23,
+
+        self.usage = .init(usedMinutes: 30,
                            limitMinutes: 30,
                            topAppName: "Instagram",
                            topAppMinutes: 12)
         
         self.missingPermissions = [] // ex.: [.screenTime]
         self.tip = "Protect the next hour like a meeting with yourself."
-        
-        // --- Health progress a partir do HealthKit ---
-        let goalSteps = 10_000
-        
-        HealthKitManager.shared.fetchTodaySteps { [weak self] steps in
-            guard let self = self else { return }
-            
-            print("DashboardViewModel.load – steps from HealthKit:", steps)
-            
-            let clampedSteps = max(0, steps)
-            let progress = min(Double(clampedSteps) / Double(goalSteps), 1.0)
-            
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .decimal
-            
-            let stepsString = formatter.string(from: NSNumber(value: clampedSteps)) ?? "\(clampedSteps)"
-            let goalString  = formatter.string(from: NSNumber(value: goalSteps)) ?? "\(goalSteps)"
-            
-            self.health = .init(
-                progress: progress,
-                title: "Daily Activity",
-                detail: "\(stepsString) / \(goalString) steps"
-            )
-            
-            self.isLoading = false
+        syncShieldingState()
+
+        Task { [weak self] in
+            guard let self else { return }
+            _ = await HealthKitManager.shared.requestAuthorization()
+            await self.activityBonus.refreshStepsAndBonus()
+            await MainActor.run {
+                self.isLoading = false
+            }
+        }
+    }
+
+    private func bindOrchestrator(_ orchestrator: ActivityBonusOrchestrator) {
+        orchestrator.$blockedGroupIdentifier
+            .receive(on: RunLoop.main)
+            .assign(to: &self.$blockedGroupIdentifier)
+
+        orchestrator.$availableBonusMinutes
+            .receive(on: RunLoop.main)
+            .assign(to: &self.$availableBonusMinutes)
+
+        orchestrator.$activeUnlockUntil
+            .receive(on: RunLoop.main)
+            .assign(to: &self.$activeUnlockUntil)
+
+        orchestrator.$lastKnownSteps
+            .sink { [weak self] steps in
+                guard let self else { return }
+                Task { @MainActor in
+                    self.currentSteps = steps
+                    self.updateHealthProgress(steps: steps)
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+    @MainActor
+    private func updateHealthProgress(steps: Int) {
+        let clampedSteps = max(0, steps)
+        let progress = min(Double(clampedSteps) / Double(stepConfiguration.dailyStepGoal), 1.0)
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+
+        let stepsString = formatter.string(from: NSNumber(value: clampedSteps)) ?? "\(clampedSteps)"
+        let goalString  = formatter.string(from: NSNumber(value: stepConfiguration.dailyStepGoal)) ?? "\(stepConfiguration.dailyStepGoal)"
+
+        health = .init(
+            progress: progress,
+            title: "Daily Activity",
+            detail: "\(stepsString) / \(goalString) steps"
+        )
+    }
+
+    private func syncShieldingState() {
+        if let limit = usage.limitMinutes, usage.usedMinutes >= limit {
+            activityBonus.markLimitReached(for: "PrimaryLimitGroup")
+        } else {
+            activityBonus.clearLimit()
         }
     }
 }
