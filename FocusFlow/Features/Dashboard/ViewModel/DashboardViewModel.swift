@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Combine
 import HealthKit
+import UIKit
 
 // Modelos simples para a Dashboard
 struct FocusBlock: Identifiable, Hashable {
@@ -39,13 +40,23 @@ enum PermissionKind: String, Identifiable {
 /// ViewModel simplificado (liga depois aos teus services)
 @MainActor
 final class DashboardViewModel: ObservableObject {
-    private let stepConfiguration = StepBonusConfiguration(
-        dailyStepGoal: 10_000,
-        baseBonusMinutes: 15,
-        bonusStepsPerBlock: 2_000,
-        bonusMinutesPerBlock: 5,
-        maxDailyBonusMinutes: 45
-    )
+    // MARK: - Persisted settings
+    @AppStorage("stepGoal") private var stepGoal: Int = 10_000
+    @AppStorage("dailyLimitMinutes") private var dailyLimitMinutes: Int = 90
+    @AppStorage("blockDurationMinutes") private var blockDurationMinutes: Int = 25
+    @AppStorage("focusRemindersEnabled") private var focusRemindersEnabled: Bool = true
+    @AppStorage("focusHapticsEnabled") private var focusHapticsEnabled: Bool = true
+    @AppStorage("userGoal") private var storedUserGoal: String = ""
+
+    private var stepConfiguration: StepBonusConfiguration {
+        StepBonusConfiguration(
+            dailyStepGoal: stepGoal,
+            baseBonusMinutes: 15,
+            bonusStepsPerBlock: 2_000,
+            bonusMinutesPerBlock: 5,
+            maxDailyBonusMinutes: 45
+        )
+    }
 
     var bonusConfiguration: StepBonusConfiguration { stepConfiguration }
 
@@ -73,6 +84,7 @@ final class DashboardViewModel: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     public let activityBonus: ActivityBonusOrchestrator
+    private var focusReminderTask: Task<Void, Never>?
 
     init(activityBonus: ActivityBonusOrchestrator? = nil) {
         let orchestrator = activityBonus ?? ActivityBonusOrchestrator(configuration: stepConfiguration)
@@ -83,14 +95,18 @@ final class DashboardViewModel: ObservableObject {
     // Ações (integra com serviços reais)
     func focusNow() {
         isFocusingNow = true
+        triggerFocusHaptic()
+        scheduleFocusReminder()
     }
 
     func stopFocus() {
         isFocusingNow = false
+        focusReminderTask?.cancel()
     }
 
     func takeBreak5Min() {
-        // TODO
+        focusReminderTask?.cancel()
+        isFocusingNow = false
     }
 
     func openPlanner() {
@@ -102,10 +118,8 @@ final class DashboardViewModel: ObservableObject {
         isLoading = true
         
         // --- mocks de restante informação (como tinhas) ---
-        let cal = Calendar.current
-        let now = Date()
-        let start = cal.date(bySettingHour: 18, minute: 0, second: 0, of: now)!
-        let end   = cal.date(bySettingHour: 20, minute: 0, second: 0, of: now)!
+        let start = Date()
+        let end   = start.addingTimeInterval(TimeInterval(blockDurationMinutes * 60))
 
         self.nextBlock = FocusBlock(
             id: .init(),
@@ -116,13 +130,13 @@ final class DashboardViewModel: ObservableObject {
 
         self.usage = .init(
             usedMinutes: 30,
-            limitMinutes: 30,
+            limitMinutes: dailyLimitMinutes,
             topAppName: "Instagram",
             topAppMinutes: 12
         )
-        
+
         self.missingPermissions = [] // ex.: [.screenTime]
-        self.tip = "Protect the next hour like a meeting with yourself."
+        self.tip = personalizedTip()
         syncShieldingState()
 
         // Task no MainActor para poder chamar HealthKitManager e ActivityBonusOrchestrator
@@ -177,11 +191,47 @@ final class DashboardViewModel: ObservableObject {
         )
     }
 
+    private func personalizedTip() -> String {
+        switch UserGoal(rawValue: storedUserGoal) {
+        case .studyLessDistracted:
+            return "Protect this session like an important class."
+        case .reduceSocialMedia:
+            return "Use your limit to curb scrolling—your future self will thank you."
+        case .sleepBetter:
+            return "Wind down: focus time now means better rest later."
+        case .justCurious:
+            return "Small tweaks lead to big changes. Explore what works for you."
+        case .none:
+            return "Protect the next hour like a meeting with yourself."
+        }
+    }
+
     private func syncShieldingState() {
         if let limit = usage.limitMinutes, usage.usedMinutes >= limit {
             activityBonus.markLimitReached(for: "PrimaryLimitGroup")
         } else {
             activityBonus.clearLimit()
         }
+    }
+
+    private func scheduleFocusReminder() {
+        focusReminderTask?.cancel()
+
+        guard focusRemindersEnabled else { return }
+
+        focusReminderTask = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(blockDurationMinutes * 60) * 1_000_000_000)
+
+            await MainActor.run {
+                guard let self, self.isFocusingNow else { return }
+                self.tip = "Time's up for this block—take a short break."
+            }
+        }
+    }
+
+    private func triggerFocusHaptic() {
+        guard focusHapticsEnabled else { return }
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
     }
 }
