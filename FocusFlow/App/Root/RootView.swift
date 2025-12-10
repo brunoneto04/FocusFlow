@@ -68,8 +68,7 @@ struct RootView: View {
             // MARK: - SETTINGS TAB
             NavigationStack {
                 // TODO: troca por SettingsRootView()
-                Text("Settings")
-                    .navigationTitle("Settings")
+                SettingsView()
             }
             .tabItem {
                 Label("Settings", systemImage: "gearshape.fill")
