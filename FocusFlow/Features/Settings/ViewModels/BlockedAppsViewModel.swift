@@ -20,7 +20,7 @@ final class BlockedAppsViewModel: ObservableObject {
     @Published var isBlockActive = false
     
     // MARK: - Dependencies
-    @ObservedObject private var screenTimeManager = ScreenTimeManager.shared
+    @ObservedObject private(set) var screenTimeManager = ScreenTimeManager.shared
     
     // MARK: - Computed Properties
     var isAuthorized: Bool {
@@ -32,10 +32,23 @@ final class BlockedAppsViewModel: ObservableObject {
         !screenTimeManager.selection.categoryTokens.isEmpty ||
         !screenTimeManager.selection.webDomainTokens.isEmpty
     }
-    
+
     var selectedAppsCount: Int {
         screenTimeManager.selection.applicationTokens.count +
         screenTimeManager.selection.categoryTokens.count +
+        screenTimeManager.selection.webDomainTokens.count
+    }
+
+    var applicationTokens: [ApplicationToken] {
+        screenTimeManager.selection.applicationTokens
+            .sorted { $0.bundleIdentifier < $1.bundleIdentifier }
+    }
+
+    var categoryTokensCount: Int {
+        screenTimeManager.selection.categoryTokens.count
+    }
+
+    var webDomainTokensCount: Int {
         screenTimeManager.selection.webDomainTokens.count
     }
     
@@ -148,5 +161,9 @@ final class BlockedAppsViewModel: ObservableObject {
     private func showErrorMessage(_ message: String) {
         errorMessage = message
         showError = true
+    }
+
+    func displayName(for token: ApplicationToken) -> String {
+        token.bundleIdentifier
     }
 }
