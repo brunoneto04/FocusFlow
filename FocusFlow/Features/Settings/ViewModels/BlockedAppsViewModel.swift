@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import FamilyControls
+import ManagedSettings
 
 @MainActor
 final class BlockedAppsViewModel: ObservableObject {
@@ -20,7 +21,17 @@ final class BlockedAppsViewModel: ObservableObject {
     @Published var isBlockActive = false
     
     // MARK: - Dependencies
-    @ObservedObject private(set) var screenTimeManager = ScreenTimeManager.shared
+    // Não precisas de @ObservedObject aqui, isto é um view model, não uma View SwiftUI
+    let screenTimeManager = ScreenTimeManager.shared
+    
+    // MARK: - Bindings expostos à View
+    /// Binding usado pela BlockedAppsView no familyActivityPicker
+    var selectionBinding: Binding<FamilyActivitySelection> {
+        Binding(
+            get: { self.screenTimeManager.selection },
+            set: { self.screenTimeManager.selection = $0 }
+        )
+    }
     
     // MARK: - Computed Properties
     var isAuthorized: Bool {
@@ -40,9 +51,9 @@ final class BlockedAppsViewModel: ObservableObject {
     }
 
     var applicationTokens: [ApplicationToken] {
-        screenTimeManager.selection.applicationTokens
-            .sorted { $0.bundleIdentifier < $1.bundleIdentifier }
+        Array(screenTimeManager.selection.applicationTokens)
     }
+
 
     var categoryTokensCount: Int {
         screenTimeManager.selection.categoryTokens.count
@@ -128,8 +139,6 @@ final class BlockedAppsViewModel: ObservableObject {
             do {
                 screenTimeManager.applySelectedShield()
                 isBlockActive = true
-                
-                // Show success feedback (you can add a success message here)
                 print("Block applied successfully")
             } catch {
                 showErrorMessage("Failed to apply block: \(error.localizedDescription)")
@@ -148,8 +157,6 @@ final class BlockedAppsViewModel: ObservableObject {
             do {
                 screenTimeManager.clearShield()
                 isBlockActive = false
-                
-                // Show success feedback
                 print("Block removed successfully")
             } catch {
                 showErrorMessage("Failed to remove block: \(error.localizedDescription)")
@@ -164,6 +171,6 @@ final class BlockedAppsViewModel: ObservableObject {
     }
 
     func displayName(for token: ApplicationToken) -> String {
-        token.bundleIdentifier
+        return "Aplicação Bloqueada"
     }
 }

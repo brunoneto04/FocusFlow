@@ -1,10 +1,3 @@
-//
-//  BlockedAppsView.swift
-//  FocusFlow
-//
-//  Created by formando on 09/12/2025.
-//
-
 import SwiftUI
 import FamilyControls
 
@@ -42,7 +35,7 @@ struct BlockedAppsView: View {
         .navigationBarTitleDisplayMode(.large)
         .familyActivityPicker(
             isPresented: $viewModel.isPickerPresented,
-            selection: $viewModel.screenTimeManager.selection
+            selection: viewModel.selectionBinding      // <-- aqui é a mudança
         )
         .onAppear {
             viewModel.checkAuthorizationStatus()
@@ -100,7 +93,7 @@ struct BlockedAppsView: View {
             
             VStack(spacing: 12) {
                 if viewModel.applicationTokens.isEmpty {
-                    infoRow(icon: "app.dashed", text: "No apps selected")
+                    infoRow(icon: "app.fill", text: "No apps selected")
                 } else {
                     infoRow(
                         icon: "app.fill",
@@ -109,7 +102,7 @@ struct BlockedAppsView: View {
                 }
 
                 if viewModel.categoryTokensCount == 0 {
-                    infoRow(icon: "folder.dashed", text: "No categories selected")
+                    infoRow(icon: "folder.fill", text: "No categories selected")
                 } else {
                     infoRow(
                         icon: "folder.fill",

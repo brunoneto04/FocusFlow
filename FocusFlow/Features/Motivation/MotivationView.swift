@@ -272,7 +272,7 @@ struct MotivationView: View {
                             )
                     )
                     .shadow(color: OnboardingTheme.shadow, radius: 8, x: 0, y: 4)
-            }.hidden(!viewModel.canNavigateNext)
+            }
         }
     }
     
