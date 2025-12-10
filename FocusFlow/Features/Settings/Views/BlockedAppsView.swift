@@ -99,31 +99,35 @@ struct BlockedAppsView: View {
             }
             
             VStack(spacing: 12) {
-                if viewModel.screenTimeManager.selection.applicationTokens.isEmpty {
+                if viewModel.applicationTokens.isEmpty {
                     infoRow(icon: "app.dashed", text: "No apps selected")
                 } else {
                     infoRow(
                         icon: "app.fill",
-                        text: "\(viewModel.screenTimeManager.selection.applicationTokens.count) app(s) selected"
+                        text: "\(viewModel.applicationTokens.count) app(s) selected"
                     )
                 }
-                
-                if viewModel.screenTimeManager.selection.categoryTokens.isEmpty {
+
+                if viewModel.categoryTokensCount == 0 {
                     infoRow(icon: "folder.dashed", text: "No categories selected")
                 } else {
                     infoRow(
                         icon: "folder.fill",
-                        text: "\(viewModel.screenTimeManager.selection.categoryTokens.count) category(ies) selected"
+                        text: "\(viewModel.categoryTokensCount) category(ies) selected"
                     )
                 }
-                
-                if viewModel.screenTimeManager.selection.webDomainTokens.isEmpty {
+
+                if viewModel.webDomainTokensCount == 0 {
                     infoRow(icon: "globe", text: "No websites selected")
                 } else {
                     infoRow(
                         icon: "globe",
-                        text: "\(viewModel.screenTimeManager.selection.webDomainTokens.count) website(s) selected"
+                        text: "\(viewModel.webDomainTokensCount) website(s) selected"
                     )
+                }
+
+                if !viewModel.applicationTokens.isEmpty {
+                    blockedApplicationsList
                 }
             }
             .padding(16)
@@ -135,6 +139,18 @@ struct BlockedAppsView: View {
                 RoundedRectangle(cornerRadius: 16)
                     .stroke(Color.white.opacity(0.15), lineWidth: 1)
             )
+        }
+    }
+
+    private var blockedApplicationsList: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("Aplicações bloqueadas")
+                .font(.subheadline.bold())
+                .foregroundColor(.white)
+
+            ForEach(viewModel.applicationTokens, id: \.self) { token in
+                blockedAppRow(name: viewModel.displayName(for: token))
+            }
         }
     }
     
@@ -237,6 +253,29 @@ struct BlockedAppsView: View {
                 .foregroundColor(.white.opacity(0.9))
             Spacer()
         }
+    }
+
+    private func blockedAppRow(name: String) -> some View {
+        HStack(spacing: 12) {
+            Image(systemName: "app.badge.checkmark")
+                .foregroundColor(.white.opacity(0.85))
+                .frame(width: 24)
+
+            Text(name)
+                .font(.subheadline)
+                .foregroundColor(.white)
+
+            Spacer()
+        }
+        .padding(10)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.white.opacity(0.06))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+        )
     }
     
     private func statusRow(title: String, value: String, color: Color) -> some View {
