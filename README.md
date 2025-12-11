@@ -23,11 +23,7 @@ Aplicação iOS em SwiftUI para ajudar pessoas a reduzirem distrações, planear
   - `Core/`: configuração (`Config`), temas (`DesignSystem`), recursos (`Resources`), serviços (`Services` para HealthKit, Screen Time, persistência) e utilitários.
   - `Features/`: ecrãs de Onboarding, Dashboard (permissões, cartões, barras de ações), Permissions, Settings e Motivation.
   - `FocusFlow.entitlements`: habilita Family Controls, HealthKit e App Groups.
-- `FocusFlowShared/`: pacote Swift de modelos/utilidades partilhados (ex.: `ActivityCredit`).
-- `FFDeviceActivityReport/`: extensão placeholder para relatórios de atividade do Screen Time.
-- `FFShieldConfigurationUI/`: extensão placeholder para UI de escudos do ManagedSettingsUI.
-- `Packages/` e `Scripts/`: anotações para dependências via SPM e scripts de automação/lint (placeholders).
-- `FocusFlow.xcodeproj`: projeto Xcode com alvos da app e extensões.
+
 
 ## Requisitos
 - **Xcode** 15 ou superior.
