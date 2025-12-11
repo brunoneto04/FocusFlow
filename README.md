@@ -1,110 +1,62 @@
 # FocusFlow
 
-FocusFlow is an iOS app that helps you reduce distractions, build healthy device habits, and stay focused on what matters – without feeling overwhelmed.
+Aplicação iOS em SwiftUI para ajudar pessoas a reduzirem distrações, planear blocos de foco e conquistar minutos extra de utilização ao atingir metas de atividade física. O projeto integra **Screen Time/Family Controls**, **ManagedSettings**, **DeviceActivity** e **HealthKit** para controlar apps, acompanhar passos e libertar bónus de tempo.
 
-> Built with SwiftUI and the latest Screen Time / Family Controls APIs.
+## Visão geral
+- **Onboarding guiado**: recolhe a meta principal, o limite diário de utilização e ativa o fluxo inicial antes de entrar na app.
+- **Dashboard**: mostra o próximo bloco de foco, progresso diário, estatísticas de uso, dicas de motivação e banners de permissões.
+- **Bónus por atividade**: `ActivityBonusOrchestrator` soma minutos extra conforme passos lidos no HealthKit e desbloqueia apps temporariamente.
+- **Bloqueio de apps e websites**: `ScreenTimeManager` aplica/remove escudos usando seleções do `FamilyActivitySelection`.
+- **Sessões rápidas**: ações para iniciar, pausar ou pedir pausa de 5 minutos mantendo feedback visual (ProgressRing, haptics simples).
+- **Motivação e dicas**: serviço de frases aleatórias (`MotivationService`) e lembretes configuráveis.
+- **Configurações**: ajuste de metas, haptics e seleção de apps bloqueados em `SettingsView`/`BlockedAppsView`.
 
----
+## Arquitetura
+- **SwiftUI + MVVM**: `FocusFlowApp` decide entre onboarding e `RootView`; cada feature possui `View` + `ViewModel` e usa `@AppStorage` para preferências rápidas.
+- **Services**: camadas para HealthKit (`HealthKitManager`), Screen Time/ManagedSettings (`ScreenTimeManager`), persistência simples (`AppGroupStorage`), cálculo de bónus por passos (`StepBonusEngine`/`ActivityBonusOrchestrator`).
+- **Design system**: componentes como `ProgressRing` e temas de onboarding (`OnboardingTheme`).
+- **Compatibilidade**: orientado para iOS 16+ por exigir Family Controls/DeviceActivity; algumas APIs não funcionam no simulador.
 
-## Table of Contents
+## Estrutura do repositório
+- `FocusFlow/`
+  - `App/`: ponto de entrada (`FocusFlowApp`, `AppDelegate`), roteamento e `RootView`.
+  - `Core/`: configuração (`Config`), temas (`DesignSystem`), recursos (`Resources`), serviços (`Services` para HealthKit, Screen Time, persistência) e utilitários.
+  - `Features/`: ecrãs de Onboarding, Dashboard (permissões, cartões, barras de ações), Permissions, Settings e Motivation.
+  - `FocusFlow.entitlements`: habilita Family Controls, HealthKit e App Groups.
+- `FocusFlowShared/`: pacote Swift de modelos/utilidades partilhados (ex.: `ActivityCredit`).
+- `FFDeviceActivityReport/`: extensão placeholder para relatórios de atividade do Screen Time.
+- `FFShieldConfigurationUI/`: extensão placeholder para UI de escudos do ManagedSettingsUI.
+- `Packages/` e `Scripts/`: anotações para dependências via SPM e scripts de automação/lint (placeholders).
+- `FocusFlow.xcodeproj`: projeto Xcode com alvos da app e extensões.
 
-- [Overview](#overview)
-- [Features](#features)
-- [Architecture](#architecture)
-- [Requirements](#requirements)
-- [Getting Started](#getting-started)
-  - [1. Clone the repository](#1-clone-the-repository)
-  - [2. Open in Xcode](#2-open-in-xcode)
-  - [3. Configure capabilities](#3-configure-capabilities)
-  - [4. Build & run](#4-build--run)
-- [Permissions & Privacy](#permissions--privacy)
-- [Project Structure](#project-structure)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+## Requisitos
+- **Xcode** 15 ou superior.
+- **iOS** 16+ (Family Controls/DeviceActivity/ManagedSettings são restritos a dispositivos físicos).
+- Conta Apple Developer com permissões para HealthKit e Screen Time.
 
----
+## Configuração rápida
+1. **Clonar**
+   ```bash
+   git clone https://github.com/<sua-conta>/FocusFlow.git
+   cd FocusFlow
+   ```
+2. **Abrir no Xcode**
+   - Use `FocusFlow.xcodeproj` e selecione uma equipa de assinatura.
+3. **Ajustar identificadores**
+   - Actualize o *Bundle Identifier* da app e das extensões (`FFDeviceActivityReport`, `FFShieldConfigurationUI`) para o seu domínio.
+   - Ajuste o App Group em `FocusFlow/Core/Services/Persistence/AppGroupStorage.swift` e em `FocusFlow.entitlements` para o identificador que controla.
+4. **Habilitar capacidades**
+   - Family Controls, DeviceActivity, ManagedSettings, HealthKit e App Groups devem estar ativos na app e extensões correspondentes.
+5. **Executar no dispositivo**
+   - No primeiro uso, conclua o onboarding e acione o banner de permissões para pedir acesso ao Screen Time e HealthKit.
+   - Selecione apps/domínios a bloquear em Settings → “Blocked Apps”.
 
-## Overview
+## Alvos e extensões
+- **FocusFlow (app)**: interface principal em SwiftUI e fluxo de onboarding.
+- **FFDeviceActivityReport**: base para relatórios de utilização entregues pelo Screen Time (atualmente placeholder).
+- **FFShieldConfigurationUI**: base para UI de desbloqueio/escudo customizado (placeholder).
 
-FocusFlow uses Apple's **Screen Time**, **Family Controls** and (optionally) **HealthKit** to provide a structured way to:
-
-- Limit distracting apps
-- Plan focus sessions
-- Track your progress over time
-- Build sustainable digital habits
-
-The app is built using **SwiftUI** and follows an **MVVM**-oriented architecture, with a clear separation between views, view models, and services.
-
----
-
-## Features
-
-- 🧠 **Guided Onboarding**  
-  Friendly onboarding flow explaining why the app needs Screen Time / Notification permissions and how FocusFlow works.
-
-- 🔒 **Screen Time & App Blocking**  
-  Uses `FamilyControls` / `DeviceActivity` to:
-  - Request Screen Time authorization
-  - Configure which apps / categories can be limited
-  - Apply focus rules during active sessions
-
-- ⏱️ **Focus Sessions**  
-  - Start focus timers with a duration and simple goal  
-  - Use app limits during a session to reduce distractions  
-  - Visual feedback on progress during and after the session
-
-- 📊 **Progress & Insights**  
-  - Overview of recent focus sessions  
-  - High-level stats (total focus time, streaks, etc.)  
-  *(Extend / customise this section according to your implementation.)*
-
-- 🧩 **Modular Permissions UI**  
-  - Reusable permission cards (e.g. Screen Time, Notifications, Health)  
-  - Clear status and actions: "Enable", "Granted", "Fix issue"
-
----
-
-## Architecture
-
-FocusFlow is organised in a modular way around **features** and **services**:
-
-- `Core/`
-  - `Services/`
-    - `ScreenTimeManager.swift` – wraps Screen Time / Family Controls APIs
-    - Other managers (e.g. `NotificationManager`, `HealthManager`) as needed
-  - `Models/` – core data models and types
-- `Features/`
-  - `Onboarding/`
-  - `Permissions/`
-  - `FocusSession/`
-  - `Dashboard/`
-- `Shared/`
-  - Reusable UI components (e.g. `PermissionCard`, buttons, typography)
-  - Theming and constants
-
-The app follows MVVM:
-
-- **View**: SwiftUI views (`*.swift` in `Features/.../Views`)
-- **ViewModel**: business logic, state & side-effects
-- **Service / Manager**: wraps Apple frameworks and system APIs
-
----
-
-## Requirements
-
-- **Xcode**: 15.0 or later  
-- **iOS Deployment Target**: iOS 16.0+  
-  - Family Controls / Screen Time APIs used in this project require iOS 16 or newer.
-- **Swift**: 5.9+ (or the version that ships with your Xcode)
-
----
-
-## Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/<your-username>/FocusFlow.git
-cd FocusFlow
+## Dicas de desenvolvimento
+- HealthKit/Screen Time só respondem em dispositivo físico; o fluxo de bónus por passos ficará a zero no simulador.
+- `ActivityBonusOrchestrator` e `DashboardViewModel` usam `@MainActor` e Combine; ao integrar com dados reais, mantenha atualizações na main queue.
+- Use o `ManagedSettingsStore` em `ScreenTimeManager` para aplicar/remover escudos após receber autorizações.
