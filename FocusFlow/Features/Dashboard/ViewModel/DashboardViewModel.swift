@@ -87,9 +87,20 @@ final class DashboardViewModel: ObservableObject {
     private var focusReminderTask: Task<Void, Never>?
 
     init(activityBonus: ActivityBonusOrchestrator? = nil) {
-        let orchestrator = activityBonus ?? ActivityBonusOrchestrator(configuration: stepConfiguration)
-        self.activityBonus = orchestrator
-        bindOrchestrator(orchestrator)
+        if let provided = activityBonus {
+            self.activityBonus = provided
+        } else {
+            self.activityBonus = ActivityBonusOrchestrator(
+                configuration: StepBonusConfiguration(
+                    dailyStepGoal: 10_000,
+                    baseBonusMinutes: 15,
+                    bonusStepsPerBlock: 2_000,
+                    bonusMinutesPerBlock: 5,
+                    maxDailyBonusMinutes: 45
+                )
+            )
+        }
+        bindOrchestrator(self.activityBonus)
     }
 
     // Ações (integra com serviços reais)

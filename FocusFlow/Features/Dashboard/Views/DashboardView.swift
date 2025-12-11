@@ -81,20 +81,7 @@ struct DashboardView: View {
                     NextFocusBlockCard(block: vm.nextBlock)
 
                     UsageSummaryCard(
-                        usage: vm.usage,
-                        onOpenReport: {
-                            navigate(.planner)
-                        }
-                    )
-
-                    QuickActionsBar(
-                        isFocusing: vm.isFocusingNow,
-                        onFocus: vm.focusNow,
-                        onStop: vm.stopFocus,
-                        onBreak: vm.takeBreak5Min,
-                        onPlanner: {
-                            navigate(.planner)
-                        }
+                        usage: vm.usage
                     )
                 }
                 .padding(.horizontal, 20)

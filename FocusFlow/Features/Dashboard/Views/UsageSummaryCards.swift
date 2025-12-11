@@ -2,7 +2,7 @@ import SwiftUI
 
 struct UsageSummaryCard: View {
     let usage: UsageSummary
-    let onOpenReport: () -> Void
+   
     
     @Environment(\.colorScheme) private var colorScheme
 
@@ -13,8 +13,6 @@ struct UsageSummaryCard: View {
                     .font(.headline)
                     .foregroundColor(.primary)
                 Spacer()
-                Button("View details", action: onOpenReport)
-                    .font(.footnote)
             }
 
             ProgressView(value: progressValue)
@@ -26,11 +24,7 @@ struct UsageSummaryCard: View {
                     .font(.subheadline)
                     .foregroundColor(.primary)
                 Spacer()
-                if let app = usage.topAppName, let min = usage.topAppMinutes {
-                    Text("Top: \(app) · \(min)m")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                }
+                
             }
         }
         .padding(20)
