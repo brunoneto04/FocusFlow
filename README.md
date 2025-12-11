@@ -50,12 +50,6 @@ Aplicação iOS em SwiftUI para ajudar pessoas a reduzirem distrações, planear
 5. **Executar no dispositivo**
    - No primeiro uso, conclua o onboarding e acione o banner de permissões para pedir acesso ao Screen Time e HealthKit.
    - Selecione apps/domínios a bloquear em Settings → “Blocked Apps”.
-
-## Alvos e extensões
-- **FocusFlow (app)**: interface principal em SwiftUI e fluxo de onboarding.
-- **FFDeviceActivityReport**: base para relatórios de utilização entregues pelo Screen Time (atualmente placeholder).
-- **FFShieldConfigurationUI**: base para UI de desbloqueio/escudo customizado (placeholder).
-
 ## Dicas de desenvolvimento
 - HealthKit/Screen Time só respondem em dispositivo físico; o fluxo de bónus por passos ficará a zero no simulador.
 - `ActivityBonusOrchestrator` e `DashboardViewModel` usam `@MainActor` e Combine; ao integrar com dados reais, mantenha atualizações na main queue.
