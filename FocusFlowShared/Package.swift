@@ -20,8 +20,7 @@ let package = Package(
         ),
         .testTarget(
             name: "FocusFlowSharedTests",
-            dependencies: ["FocusFlowShared"],
-            path: "Tests"
+            dependencies: ["FocusFlowShared"]
         ),
     ]
 )
