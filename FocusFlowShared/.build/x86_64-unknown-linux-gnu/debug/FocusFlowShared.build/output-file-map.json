@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/primary.swiftdeps"
+  },
+  "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Sources/Domain/Models/ActivityCredit.swift": {
+    "dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.d",
+    "object": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.swift.o",
+    "swiftmodule": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit~partial.swiftmodule",
+    "swift-dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.swiftdeps",
+    "diagnostics": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.dia"
+  }
+}

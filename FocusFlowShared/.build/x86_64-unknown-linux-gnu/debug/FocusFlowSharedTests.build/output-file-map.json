@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/primary.swiftdeps"
+  },
+  "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Tests/FocusFlowSharedTests/FocusFlowSharedTests.swift": {
+    "dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.d",
+    "object": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swift.o",
+    "swiftmodule": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests~partial.swiftmodule",
+    "swift-dependencies": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swiftdeps",
+    "diagnostics": "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.dia"
+  }
+}

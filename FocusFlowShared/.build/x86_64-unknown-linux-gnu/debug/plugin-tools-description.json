@@ -1,0 +1,695 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.xctest",
+      "packagePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared",
+      "productName" : "FocusFlowSharedPackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+    "FocusFlowSharedPackageDiscoveredTests"
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.FocusFlowShared-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/sources",
+      "importPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Sources/Domain/Models/ActivityCredit.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FocusFlowShared",
+      "moduleOutputPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowShared.swiftmodule",
+      "objects" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/include/FocusFlowShared-Swift.h",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowShared.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Sources/Domain/Models/ActivityCredit.swift"
+      ],
+      "tempsPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FocusFlowSharedPackageDiscoveredTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/sources",
+      "importPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/FocusFlowSharedTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FocusFlowSharedPackageDiscoveredTests",
+      "moduleOutputPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageDiscoveredTests.swiftmodule",
+      "objects" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/FocusFlowSharedTests.swift.o",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/include/FocusFlowSharedPackageDiscoveredTests-Swift.h",
+        "-color-diagnostics",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/FocusFlowSharedTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/FocusFlowSharedTests.swift",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift"
+      ],
+      "tempsPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FocusFlowSharedPackageTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/sources",
+      "importPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageDiscoveredTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FocusFlowSharedPackageTests",
+      "moduleOutputPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageTests.swiftmodule",
+      "objects" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/include/FocusFlowSharedPackageTests-Swift.h",
+        "-color-diagnostics",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.FocusFlowSharedTests-x86_64-unknown-linux-gnu-debug.module" : {
+      "executable" : "/usr/share/swift/usr/bin/swiftc",
+      "fileList" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/sources",
+      "importPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Tests/FocusFlowSharedTests/FocusFlowSharedTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowShared.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "FocusFlowSharedTests",
+      "moduleOutputPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedTests.swiftmodule",
+      "objects" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "x86_64-unknown-linux-gnu",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j4",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-swift-version",
+        "5",
+        "-g",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-Xcc",
+        "-fno-omit-frame-pointer"
+      ],
+      "outputFileMapPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Tests/FocusFlowSharedTests/FocusFlowSharedTests.swift"
+      ],
+      "tempsPath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "FocusFlowShared" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "FocusFlowShared",
+      "-c",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Sources/Domain/Models/ActivityCredit.swift",
+      "-I",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/include/FocusFlowShared-Swift.h",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "FocusFlowSharedPackageDiscoveredTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "FocusFlowSharedPackageDiscoveredTests",
+      "-c",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/FocusFlowSharedTests.swift",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift",
+      "-I",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/include/FocusFlowSharedPackageDiscoveredTests-Swift.h",
+      "-color-diagnostics",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "FocusFlowSharedPackageTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "FocusFlowSharedPackageTests",
+      "-c",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift",
+      "-I",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/include/FocusFlowSharedPackageTests-Swift.h",
+      "-color-diagnostics",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ],
+    "FocusFlowSharedTests" : [
+      "/usr/share/swift/usr/bin/swiftc",
+      "-module-name",
+      "FocusFlowSharedTests",
+      "-c",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Tests/FocusFlowSharedTests/FocusFlowSharedTests.swift",
+      "-I",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules",
+      "-target",
+      "x86_64-unknown-linux-gnu",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j4",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-color-diagnostics",
+      "-swift-version",
+      "5",
+      "-g",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-Xcc",
+      "-fno-omit-frame-pointer",
+      "-driver-use-frontend-path",
+      "/usr/share/swift/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "FocusFlowShared" : [
+
+    ],
+    "FocusFlowSharedPackageDiscoveredTests" : [
+      "FocusFlowSharedTests",
+      "FocusFlowShared"
+    ],
+    "FocusFlowSharedPackageTests" : [
+      "FocusFlowSharedPackageDiscoveredTests",
+      "FocusFlowSharedTests",
+      "FocusFlowShared"
+    ],
+    "FocusFlowSharedTests" : [
+      "FocusFlowShared"
+    ]
+  },
+  "testDiscoveryCommands" : {
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swift.o"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/FocusFlowSharedTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ]
+    }
+  },
+  "testEntryPointCommands" : {
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/Modules/FocusFlowSharedPackageDiscoveredTests.swiftmodule"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Sources/Domain/Models/ActivityCredit.swift"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/sources"
+    },
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/FocusFlowSharedTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.derived/all-discovered-tests.swift"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/sources"
+    },
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/sources"
+    },
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/ActivityCredit.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowShared.build/FocusFlowShared.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/FocusFlowSharedPackageDiscoveredTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/FocusFlowSharedTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageDiscoveredTests.build/all-discovered-tests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/FocusFlowSharedPackageTests.swiftmodule.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/FocusFlowSharedTests.swiftmodule.o"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedPackageTests.product/Objects.LinkFileList"
+    },
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/Tests/FocusFlowSharedTests/FocusFlowSharedTests.swift"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/FocusFlowSharedTests.build/sources"
+    },
+    "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/usr/share/swift/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/tmp/workspace/brunoneto04/FocusFlow/FocusFlowShared/.build/x86_64-unknown-linux-gnu/debug/swift-version--1BFCD5C06E9F820A.txt"
+    }
+  }
+}

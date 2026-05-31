@@ -14,9 +14,8 @@ let package = Package(
         .target(
             name: "FocusFlowShared",
             path: "",
-            exclude: ["README.md"],
-            sources: ["Sources"],
-            resources: [.process("Sources/DesignSystem")]
+            exclude: ["README.md", "Sources/Utils/README.md", "Tests"],
+            sources: ["Sources"]
         ),
         .testTarget(
             name: "FocusFlowSharedTests",
